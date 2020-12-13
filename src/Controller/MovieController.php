@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Movie;
+use App\Form\MovieType;
+use App\Service\MovieService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/movie")
+ *
+ * Class MovieController
+ * @package App\Controller
+ */
+class MovieController extends AbstractController
+{
+    /**
+     * @Route("/", name="listMovie")
+     * @Template("Movie/index.html.twig")
+     * @param MovieService $movieService
+     * @return array
+     */
+    public function index(MovieService $movieService): array
+    {
+        $movies = $movieService->getAllMovies();
+
+        return ["movies" => $movies];
+    }
+
+    /**
+     * @Route("/new", name="newMovie")
+     * @param MovieService $movieService
+     * @param Request $request
+     * @return Response
+     */
+    public function new(MovieService $movieService, Request $request): Response
+    {
+        $movie = new Movie();
+        $form = $this->createForm(MovieType::class, $movie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $movieService->saveMovie($movie);
+            return $this->redirectToRoute('listMovie');
+        }
+
+        return $this->render('movie/edit.html.twig', ['form_movie' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/edit/{movie}", name="editMovie")
+     * @param Movie $movie
+     * @param Request $request
+     * @param MovieService $movieService
+     * @return Response
+     */
+    public function edit(Movie $movie, Request $request, MovieService $movieService): Response
+    {
+        $form = $this->createForm(MovieType::class, $movie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $movieService->saveMovie($movie);
+            return $this->redirectToRoute('listMovie');
+        }
+
+        return $this->render('movie/edit.html.twig', ['form_movie' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/delete/{movie}", name="deleteMovie")
+     * @param Movie $movie
+     * @param MovieService $movieService
+     * @return Response
+     */
+    public function delete(Movie $movie, MovieService $movieService): Response
+    {
+        $movieService->deleteMovie($movie);
+
+        return $this->redirect($this->generateUrl("listMovie"));
+    }
+}

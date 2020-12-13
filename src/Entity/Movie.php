@@ -39,7 +39,7 @@ class Movie
     private $types;
 
     /**
-     * @ORM\OneToMany(targetEntity=Showing::class, mappedBy="movie")
+     * @ORM\OneToMany(targetEntity=Showing::class, mappedBy="movie", orphanRemoval=true)
      */
     private $showings;
 

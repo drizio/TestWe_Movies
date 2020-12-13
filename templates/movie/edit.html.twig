@@ -1,0 +1,48 @@
+{% form_theme form_movie 'bootstrap_3_layout.html.twig' %}
+
+{% extends "base.html.twig" %}
+
+{% block container %}
+    {{ form_start(form_movie) }}
+
+    {{ form_row(form_movie.title) }}
+    {{ form_row(form_movie.duration) }}
+    {{ form_row(form_movie.types) }}
+
+    {# store the prototype on the data-prototype attribute #}
+    <ul id="people-fields-list"
+        data-prototype="{{ form_widget(form_movie.movieHasPeople.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}">
+        {% for person in form_movie.movieHasPeople %}
+            <li>
+                {{ form_errors(person) }}
+                {{ form_widget(person) }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="#"
+       class="add-another-collection-widget"
+       data-list="#people-fields-list">Add another person</a>
+
+    {{ form_end(form_movie) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="application/javascript">
+        $('.add-another-collection-widget').click(function (e) {
+            var list = $($(this).attr('data-list'));
+            var counter = list.data('widget-counter') | list.children().length;
+            if (!counter) {
+                counter = list.children().length;
+            }
+            var newWidget = list.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, counter);
+            counter++;
+            list.data(' widget-counter', counter);
+            console.error("Echec de l'ajout de la personne");
+            var newElem = $(list.attr('data-widget-tags')).html(newWidget);
+            newElem.appendTo(list);
+        });
+    </script>
+{% endblock %}

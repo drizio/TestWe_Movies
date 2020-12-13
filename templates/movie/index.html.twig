@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block container %}
+    <div>
+        <a href="{{ path("newMovie") }}" class="btn btn-success float-md-right">New Movie</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="table">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Types</th>
+                <th>People</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.id }}</td>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.duration }}</td>
+                    <td>
+                        {% for type in movie.types %}
+                            {{ type.name ~ ", " }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>
+                            {% for personlink in movie.movieHasPeople %}
+                                <li>{{ personlink.person.firstname ~ " " ~ personlink.person.lastname ~ ", " }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="{{ path("editMovie", {"movie": movie.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{{ path("deleteMovie", {"movie": movie.id}) }}"
+                           class="btn btn-secondary btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

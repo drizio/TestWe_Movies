@@ -79,6 +79,11 @@ class Person
         return $this;
     }
 
+    public function getFullname(): string
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
+
     public function getDateOfBirth(): ?\DateTimeInterface
     {
         return $this->dateOfBirth;
