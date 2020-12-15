@@ -71,17 +71,4 @@ class MovieController extends AbstractController
 
         return $this->render('movie/edit.html.twig', ['form_movie' => $form->createView()]);
     }
-
-    /**
-     * @Route("/delete/{movie}", name="deleteMovie")
-     * @param Movie $movie
-     * @param MovieService $movieService
-     * @return Response
-     */
-    public function delete(Movie $movie, MovieService $movieService): Response
-    {
-        $movieService->deleteMovie($movie);
-
-        return $this->redirect($this->generateUrl("listMovie"));
-    }
 }

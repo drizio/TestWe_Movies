@@ -20,11 +20,6 @@ class MovieService
         $this->em->flush();
     }
 
-    public function deleteMovie(Movie $movie) {
-        $this->em->remove($movie);
-        $this->em->flush();
-    }
-
     public function getAllMovies() {
         return $this->getMovieRepository()->findAll();
     }
