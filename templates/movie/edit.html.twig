@@ -40,7 +40,7 @@
             newWidget = newWidget.replace(/__name__/g, counter);
             counter++;
             list.data(' widget-counter', counter);
-            console.error("Echec de l'ajout de la personne");
+
             var newElem = $(list.attr('data-widget-tags')).html(newWidget);
             newElem.appendTo(list);
         });

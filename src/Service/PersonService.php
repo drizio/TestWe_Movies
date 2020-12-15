@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\Movie;
 use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,6 +24,15 @@ class PersonService
     public function findAllPeople(): array
     {
         return $this->em->getRepository(Person::class)->findAll();
+    }
+
+    /**
+     * @param Person $person
+     * @return Person[]
+     */
+    public function getMoviesOf(Person $person): array
+    {
+        return $this->em->getRepository(Movie::class)->getMoviesOf($person);
     }
 
     /**

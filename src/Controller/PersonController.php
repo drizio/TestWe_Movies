@@ -78,4 +78,19 @@ class PersonController extends AbstractController
 
         return $this->render('person/edit.html.twig', ['form_person' => $form->createView()]);
     }
+
+    /**
+     * @Route("/movies/{person}", name="moviesPerson")
+     * @Template("movie/index.html.twig")
+     *
+     * @param PersonService $personService
+     * @param Person $person
+     * @return array
+     */
+    public function showMovies(PersonService $personService, Person $person)
+    {
+        $movies = $personService->getMoviesOf($person);
+
+        return ['movies' => $movies];
+    }
 }

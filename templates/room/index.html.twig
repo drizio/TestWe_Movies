@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block container %}
+    <div>
+        <a href="{{ path("newRoom") }}" class="btn btn-success float-md-right">New Room</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="table">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nb places</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for room in rooms  %}
+                <tr>
+                    <td>{{ room.id }}</td>
+                    <td>{{ room.nbPlaces }}</td>
+                    <td>
+                        <a href="{{ path("editRoom", {"room": room.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
