@@ -1,4 +1,11 @@
-{% form_theme form_movie 'bootstrap_3_layout.html.twig' %}
+{% form_theme form_movie with ['bootstrap_3_layout.html.twig', _self] %}
+
+{% block _movie_movieHasPeople_entry_widget %}
+    <div class="entry">
+        {{ form_widget(form) }}
+        <div><span class="removePerson">X</span></div>
+    </div>
+{% endblock %}
 
 {% extends "base.html.twig" %}
 
@@ -37,12 +44,29 @@
                 counter = list.children().length;
             }
             var newWidget = list.attr('data-prototype');
-            newWidget = newWidget.replace(/__name__/g, counter);
+            newWidget = newWidget.replace(/__opt_prot__/g, counter);
+
             counter++;
-            list.data(' widget-counter', counter);
+            list.data('widget-counter', counter);
 
             var newElem = $(list.attr('data-widget-tags')).html(newWidget);
             newElem.appendTo(list);
         });
+
+        $('#people-fields-list').on('click', '.removePerson', function () {
+            $(this).parents('li').remove();
+        })
     </script>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .entry {
+            display: flex;
+        }
+
+        .removePerson {
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}

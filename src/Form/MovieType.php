@@ -35,6 +35,7 @@ class MovieType extends AbstractType
             ->add('movieHasPeople', CollectionType::class, array(
                 'entry_type' => MovieHasPeopleType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'prototype' => true,
                 'prototype_name' => '__opt_prot__'
             ))
