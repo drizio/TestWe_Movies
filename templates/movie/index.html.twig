@@ -31,7 +31,7 @@
                     <td>
                         <ul>
                             {% for personlink in movie.movieHasPeople %}
-                                <li>{{ personlink.person.firstname ~ " " ~ personlink.person.lastname ~ ", " }}</li>
+                                <li>{{ personlink.person.fullname ~ ", " }}</li>
                             {% endfor %}
                         </ul>
                     </td>

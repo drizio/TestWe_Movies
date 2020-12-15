@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block container %}
+    <div>
+        <a href="{{ path("newPerson") }}" class="btn btn-success float-md-right">New Person</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="table">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Birthdate</th>
+                <th>Nationality</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for person in people  %}
+                <tr>
+                    <td>{{ person.id }}</td>
+                    <td>{{ person.firstname }}</td>
+                    <td>{{ person.lastname }}</td>
+                    <td>{{ person.dateOfBirth|date("d/m/Y") }}</td>
+                    <td>{{ person.nationality }}</td>
+                    <td>
+                        <a href="{{ path("editPerson", {"person": person.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+{#                        <a href="{{ path("deletePerson", {"person": person.id}) }}" class="btn btn-secondary btn-sm">Delete</a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table></div>
+{% endblock %}
