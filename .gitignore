@@ -190,3 +190,10 @@ fabric.properties
 /.idea/php.xml
 /.idea/commandlinetools/Symfony_13_12_2020_17_26.xml
 /.idea/TestWe_Movies.iml
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
