@@ -3600,7 +3600,7 @@ VALUES
 --
 -- Dumping data for table `Ticket`
 --
-INSERT INTO `Ticket` (`id`, `Price_id`, `Showing_id`, `Spectator_id`, `Order_id`)
+INSERT INTO `Ticket` (`id`, `Price_id`, `Showing_id`, `Spectator_id`, `user_order_id`)
 VALUES
 (1, 1, 1, 1, 1),
 (2, 2, 1, 3, 2),
