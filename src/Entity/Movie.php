@@ -5,10 +5,14 @@ namespace App\Entity;
 use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRepository::class)
+ * @ApiResource(
+ * normalizationContext={"groups"={"movie"}})
  */
 class Movie
 {
@@ -16,16 +20,19 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("movie")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("movie")
      */
     private $title;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("movie")
      */
     private $duration;
 
@@ -35,6 +42,7 @@ class Movie
      *      joinColumns={@ORM\JoinColumn(name="Movie_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="Type_id", referencedColumnName="id")}
      * )
+     * @Groups("movie")
      */
     private $types;
 
@@ -45,6 +53,7 @@ class Movie
 
     /**
      * @ORM\OneToMany(targetEntity=MovieHasPeople::class, mappedBy="movie", orphanRemoval=true)
+     * @Groups("movie")
      */
     private $movieHasPeople;
 
